@@ -12,17 +12,23 @@
             $num_row1 	= mysqli_num_rows($query1);
 			$num_row 	= mysqli_num_rows($query);
 			if ($num_row > 0) 
-				{			
-					// $_SESSION['user_id']=$row['user_id'];
+				{
+					$_SESSION['login'] = 1;
 					header('location:Halaman_buku_tamu.php');
 					
 				}
             elseif($num_row1 > 0){
-                header('location:Halaman_buku_tamu.php');
-            }
+					$_SESSION['login'] = 1;
+            		header('location:Halaman_buku_tamu.php');
+                }
 			else
 				{
-					echo 'Invalid Username and Password Combination';
+					$_SESSION['insert_status'] = 0;
+					$_SESSION['alert_status'] = 'alert alert-danger alert-dismissible fade show';
+					$_SESSION['insert_message'] = '<strong>gagal login</strong>';
+					header('location:index.php');
+					// echo 'Invalid Username and Password Combination';
 				}
 		}
+		
   ?>

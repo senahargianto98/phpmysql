@@ -1,7 +1,7 @@
 <?php
 // Menghubungkan ke koneksi
 require_once "MYSQL_connection.php";
-
+session_start();
 $nama = $_POST['nama'];
 $email= $_POST['email'];
 $pesan = $_POST['pesan'];
@@ -9,15 +9,15 @@ $pesan = $_POST['pesan'];
 $sql = "INSERT INTO tb_tamu VALUES('','$nama','$email','$pesan')";
 
 if ($conn->query($sql) === True){
-    echo "
-    <script> alert('Berhasil Tersimpan');
-        location.assign('Halaman_buku_tamu.php');
-    </script>";
+    $_SESSION['insert_status'] = 1;
+    $_SESSION['alert_status'] = 'alert alert-success alert-dismissible fade show';
+    $_SESSION['insert_message'] = '<strong>Berhasil Terinsert</strong>';
+    header("location:Halaman_buku_tamu.php");
 }else{
-    echo "
-    <script> alert('Gagal Tersimpan');
-        location.assign('Halaman_buku_tamu.php');
-    </script>";
+    $_SESSION['insert_status'] = 1;
+    $_SESSION['alert_status'] = 'alert alert-danger alert-dismissible fade show';
+    $_SESSION['insert_message'] = '<strong>Gagal Terinsert</strong>';
+    header("location:Halaman_buku_tamu.php");
 }
 
 // Memassukkan ke dalam query
